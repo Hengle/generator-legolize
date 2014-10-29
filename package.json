@@ -1,0 +1,22 @@
+{
+  "name": "generator-legolize",
+  "version": "0.1.0",
+  "description": "Yeoman generator for Legolize",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/frontend-mafia/generator-legolize.git"
+  },
+  "keywords": [
+    "Legolize"
+  ],
+  "author": "Haukur Már Böðvarsson <haukurmar@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frontend-mafia/generator-legolize/issues"
+  },
+  "homepage": "https://github.com/frontend-mafia/generator-legolize"
+}
