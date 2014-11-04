@@ -11,12 +11,15 @@
     "url": "https://github.com/frontend-mafia/generator-legolize.git"
   },
   "keywords": [
-    "Legolize"
+    "yeoman-generator"
   ],
   "author": "Haukur Már Böðvarsson <haukurmar@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/frontend-mafia/generator-legolize/issues"
   },
-  "homepage": "https://github.com/frontend-mafia/generator-legolize"
+  "homepage": "https://github.com/frontend-mafia/generator-legolize",
+  "dependencies": {
+    "yeoman-generator": "^0.17.7"
+  }
 }
