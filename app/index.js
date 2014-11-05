@@ -92,18 +92,30 @@ module.exports = generators.Base.extend({
 			this.copy('gitattributes', '.gitattributes');
 		}
 	},
-	getFromGit: function () {
+	legolizeBase: function () {
 		var done = this.async();
-
 		this.extract('https://github.com/frontend-mafia/legolize-base/archive/master.zip', '.', function () {
 			done();
 		}.bind(this));
 	},
-	moveFiles: function () {
+	legolizeLegos: function () {
+		var done = this.async();
+		this.extract('https://github.com/frontend-mafia/legolize-legos/archive/master.zip', '.', function () {
+			done();
+		}.bind(this));
+	},
+	cleanup: function () {
+		var self = this;
 		var dest = this.destinationRoot();
-		this.directory(dest + '/legolize-base-master', dest + '/less').on('end', function () {
+
+		// Copy to correct folder and then remove the git folder
+		self.directory(dest + '/legolize-base-master', dest + '/less').on('end', function () {
 			rimraf(dest + '/legolize-base-master', function () {
 
+			});
+		}).directory(dest + '/legolize-legos-master', dest + '/less/legos').on('end', function () {
+			rimraf(dest + '/legolize-legos-master', function () {
+				console.log("Done!");
 			});
 		});
 	}
