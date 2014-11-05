@@ -1,4 +1,4 @@
 generator-legolize
 ==================
 
-Yeoman generator for Legolize
+Yeoman generator for Legolize LESS framework
