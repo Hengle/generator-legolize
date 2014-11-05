@@ -2,19 +2,6 @@ var generators = require('yeoman-generator');
 var yosay = require('yosay');
 var rimraf = require('rimraf');
 
-/*
- module.exports = generators.Base.extend({
- // The name `constructor` is important here
- constructor: function () {
- // Calling the super constructor is important so our generator is correctly setup
- generators.Base.apply(this, arguments);
-
- // And next add your custom code
- this.option('coffee'); // This method adds support for a `--coffee` flag
- }
- });
- */
-
 module.exports = generators.Base.extend({
 	initializing: function () {
 		this.pkg = require('../package.json');
@@ -30,9 +17,15 @@ module.exports = generators.Base.extend({
 		var prompts = [
 			{
 				type: 'input',
+				name: 'name',
+				message: 'What is the name of your app?',
+				default: this._.slugify(this.appname) // Default to current folder name
+			},
+			{
+				type: 'input',
 				name: 'destination',
-				message: 'Where would you like to install Legolize?',
-				default: "assets" // Default to current folder name
+				message: 'Where would you like to install Legolize assets?',
+				default: "assets"
 			},
 			{
 				type: 'checkbox',
@@ -90,6 +83,9 @@ module.exports = generators.Base.extend({
 		git: function () {
 			this.copy('gitignore', '.gitignore');
 			this.copy('gitattributes', '.gitattributes');
+		},
+		packageJson: function () {
+			this.template('_package.json', 'package.json');
 		}
 	},
 	legolizeBase: function () {
