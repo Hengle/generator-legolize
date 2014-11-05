@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/frontend-mafia/generator-legolize",
   "dependencies": {
+    "rimraf": "^2.2.8",
     "yeoman-generator": "^0.17.7",
     "yosay": "^1.0.0"
   }

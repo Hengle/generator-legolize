@@ -1,5 +1,6 @@
 var generators = require('yeoman-generator');
 var yosay = require('yosay');
+var rimraf = require('rimraf');
 
 /*
  module.exports = generators.Base.extend({
@@ -90,5 +91,20 @@ module.exports = generators.Base.extend({
 			this.copy('gitignore', '.gitignore');
 			this.copy('gitattributes', '.gitattributes');
 		}
+	},
+	getFromGit: function () {
+		var done = this.async();
+
+		this.extract('https://github.com/frontend-mafia/legolize-base/archive/master.zip', '.', function () {
+			done();
+		}.bind(this));
+	},
+	moveFiles: function () {
+		var dest = this.destinationRoot();
+		this.directory(dest + '/legolize-base-master', dest + '/less').on('end', function () {
+			rimraf(dest + '/legolize-base-master', function () {
+
+			});
+		});
 	}
 });
