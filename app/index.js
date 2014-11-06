@@ -23,7 +23,7 @@ module.exports = generators.Base.extend({
 			},
 			{
 				type: 'input',
-				name: 'destination',
+				name: 'assetsDestination',
 				message: 'Where would you like to install Legolize assets?',
 				default: "assets"
 			},
@@ -50,7 +50,10 @@ module.exports = generators.Base.extend({
 		this.prompt(prompts, function ( answers ) {
 			var features = answers.features;
 
-			this.destinationRoot(answers.destination);
+			var appFolder = "/app/"; // tmp, same as legolize-app
+
+			this.destinationRoot(answers.name); // TODO: Do I need slugify here?
+			this.assetsDestination = appFolder + answers.assetsDestination;
 
 			var hasFeature = function ( feat ) {
 				return features.indexOf(feat) !== - 1;
@@ -85,8 +88,14 @@ module.exports = generators.Base.extend({
 			this.copy('gitattributes', '.gitattributes');
 		},
 		packageJson: function () {
-			this.template('_package.json', 'package.json');
+			//this.template('_package.json', 'package.json');
 		}
+	},
+	legolizeApp: function () {
+		var done = this.async();
+		this.extract('https://github.com/frontend-mafia/legolize-app/archive/master.zip', '.', function () {
+			done();
+		}.bind(this));
 	},
 	legolizeBase: function () {
 		var done = this.async();
@@ -105,11 +114,15 @@ module.exports = generators.Base.extend({
 		var dest = this.destinationRoot();
 
 		// Copy to correct folder and then remove the git folder
-		self.directory(dest + '/legolize-base-master', dest + '/less').on('end', function () {
+		self.directory(dest + '/legolize-app-master', './').on('end', function () {
+			rimraf(dest + '/legolize-app-master', function () {
+
+			});
+		}).directory(dest + '/legolize-base-master', self.assetsDestination + '/less').on('end', function () {
 			rimraf(dest + '/legolize-base-master', function () {
 
 			});
-		}).directory(dest + '/legolize-legos-master', dest + '/less/legos').on('end', function () {
+		}).directory(dest + '/legolize-legos-master', self.assetsDestination + '/less/legos').on('end', function () {
 			rimraf(dest + '/legolize-legos-master', function () {
 				console.log("Done!");
 			});
